@@ -78,16 +78,14 @@ function map9(c) {
   if (isDigit(c)) return shiftDigit(c, 4)
   return shiftSymbol(c, 4)
 }
-
-// array of all maps
+//cipher maps
 const maps = [map1, map2, map3, map4, map5, map6, map7, map8, map9]
 
 function applyMap(c) {
   let idx = c.charCodeAt(0) % 9
   return maps[idx](c)
 }
-
-// vigenere logic
+//vignere cipher implementation
 function vigenereCipher(password, siteName) {
   let key = siteName.toLowerCase().replace(/[^a-z]/g, '')
 
