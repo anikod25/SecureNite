@@ -30,3 +30,15 @@ copyBtn.addEventListener("click", function () {
     copyBtn.textContent = "Copy"
   }, 2000)
 })
+
+document.getElementById("toggleBtn").addEventListener("click", function() {
+  let input = document.getElementById("password")
+  let icon = document.getElementById("eyeIcon")
+  if (input.type === "password") {
+    input.type = "text"
+    icon.src = "icons/eye-closed.png"
+  } else {
+    input.type = "password"
+    icon.src = "icons/eye-open.png"
+  }
+})
