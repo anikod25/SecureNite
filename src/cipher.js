@@ -1,27 +1,35 @@
 function shiftLetter(c, shift, base) {
-  return String.fromCharCode((c.charCodeAt(0) - base + shift + 26) % 26 + base)
+  let code = c.charCodeAt(0) - base
+  return String.fromCharCode((code + shift + 26) % 26 + base)
 }
+
 function shiftDigit(c, shift) {
-  return String.fromCharCode((c.charCodeAt(0) - 48 + shift + 10) % 10 + 48)
+  let num = c.charCodeAt(0) - 48
+  return String.fromCharCode((num + shift + 10) % 10 + 48)
 }
+
 function shiftSymbol(c, shift) {
-  return String.fromCharCode((c.charCodeAt(0) - 33 + shift + 94) % 94 + 33)
+  let sym = c.charCodeAt(0) - 33
+  return String.fromCharCode((sym + shift + 94) % 94 + 33)
 }
+
+// simple checks
 function isUpper(c) { return c >= 'A' && c <= 'Z' }
 function isLower(c) { return c >= 'a' && c <= 'z' }
 function isDigit(c) { return c >= '0' && c <= '9' }
 
+// mapping functions
 function map1(c) {
   if (isUpper(c)) return shiftLetter(c, 3, 65)
-  if (isLower(c)) return shiftLetter(c, 3, 97)
-  if (isDigit(c)) return shiftDigit(c, 3)
+  else if (isLower(c)) return shiftLetter(c, 3, 97)
+  else if (isDigit(c)) return shiftDigit(c, 3)
   return shiftSymbol(c, 3)
 }
 
 function map2(c) {
   if (isUpper(c)) return String.fromCharCode(90 - (c.charCodeAt(0) - 65))
-  if (isLower(c)) return String.fromCharCode(122 - (c.charCodeAt(0) - 97))
-  if (isDigit(c)) return String.fromCharCode(57 - (c.charCodeAt(0) - 48))
+  else if (isLower(c)) return String.fromCharCode(122 - (c.charCodeAt(0) - 97))
+  else if (isDigit(c)) return String.fromCharCode(57 - (c.charCodeAt(0) - 48))
   return String.fromCharCode(126 - (c.charCodeAt(0) - 33))
 }
 
@@ -54,7 +62,7 @@ function map6(c) {
 }
 
 function map7(c) {
-  return c
+  return c // no change
 }
 
 function map8(c) {
@@ -71,26 +79,42 @@ function map9(c) {
   return shiftSymbol(c, 4)
 }
 
-const MAPS = [map1, map2, map3, map4, map5, map6, map7, map8, map9]
+// array of all maps
+const maps = [map1, map2, map3, map4, map5, map6, map7, map8, map9]
 
 function applyMap(c) {
-  const mapIndex = c.charCodeAt(0) % 9
-  return MAPS[mapIndex](c)
+  let idx = c.charCodeAt(0) % 9
+  return maps[idx](c)
 }
 
+// vigenere logic
 function vigenereCipher(password, siteName) {
-  const key = siteName.toLowerCase().replace(/[^a-z]/g, '')
-  if (!key.length) return password
-  return password.split('').map((c, i) => {
-    const shift = key.charCodeAt(i % key.length) - 97
-    const code = c.charCodeAt(0)
-    if (isUpper(c)) return shiftLetter(c, shift, 65)
-    if (isLower(c)) return shiftLetter(c, shift, 97)
-    if (isDigit(c)) return shiftDigit(c, shift)
-    return shiftSymbol(c, shift)
-  }).join('')
+  let key = siteName.toLowerCase().replace(/[^a-z]/g, '')
+
+  if (key.length === 0) return password
+
+  let result = ""
+
+  for (let i = 0; i < password.length; i++) {
+    let c = password[i]
+    let shift = key.charCodeAt(i % key.length) - 97
+
+    if (isUpper(c)) result += shiftLetter(c, shift, 65)
+    else if (isLower(c)) result += shiftLetter(c, shift, 97)
+    else if (isDigit(c)) result += shiftDigit(c, shift)
+    else result += shiftSymbol(c, shift)
+  }
+
+  return result
 }
+
 function maskPassword(password, siteName) {
-  const afterVigenere = vigenereCipher(password, siteName)
-  return afterVigenere.split('').map(applyMap).join('')
+  let temp = vigenereCipher(password, siteName)
+  let finalPass = ""
+
+  for (let ch of temp) {
+    finalPass += applyMap(ch)
+  }
+
+  return finalPass
 }
