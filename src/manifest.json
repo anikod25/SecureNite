@@ -1,0 +1,10 @@
+{
+"manifest_version": 3,
+"name": "SecureNite",
+"version": "1.0",
+"description": "A password generator extension for Chrome",
+"actions": {
+  "default_popup": "popup.html"
+},
+"permissions": ["activeTab"]
+}
