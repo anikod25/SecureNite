@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 280px;
+  padding: 16px;
+  background: #1c2333;
+  color: #c9d1d9;
+  font-family: 'Courier New', monospace;
+}
+
+h1 {
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: #58a6ff;
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  outline: none;
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+
+input::placeholder {
+  color: #484f58;
+}
+
+input:focus {
+  border-color: #58a6ff;
+}
+
+#generateBtn {
+  width: 100%;
+  padding: 9px;
+  background: #238636;
+  border: 1px solid #2ea043;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+#generateBtn:hover {
+  background: #2ea043;
+}
+
+#output {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  padding: 8px 10px;
+  font-size: 12px;
+  word-break: break-all;
+  min-height: 32px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  color: #58a6ff;
+  letter-spacing: 1px;
+}
+
+#copyBtn {
+  width: 100%;
+  padding: 7px;
+  background: transparent;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+#copyBtn:hover {
+  border-color: #58a6ff;
+  color: #58a6ff;
+}
