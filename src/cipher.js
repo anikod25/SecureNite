@@ -78,6 +78,18 @@ function applyMap(c) {
   return MAPS[mapIndex](c)
 }
 
+function vigenereCipher(password, siteName) {
+  const key = siteName.toLowerCase().replace(/[^a-z]/g, '')
+  if (!key.length) return password
+  return password.split('').map((c, i) => {
+    const shift = key.charCodeAt(i % key.length) - 97
+    const code = c.charCodeAt(0)
+    if (isUpper(c)) return shiftLetter(c, shift, 65)
+    if (isLower(c)) return shiftLetter(c, shift, 97)
+    if (isDigit(c)) return shiftDigit(c, shift)
+    return shiftSymbol(c, shift)
+  }).join('')
+}
 function maskPassword(password, siteName) {
   const afterVigenere = vigenereCipher(password, siteName)
   return afterVigenere.split('').map(applyMap).join('')
